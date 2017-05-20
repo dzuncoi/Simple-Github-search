@@ -5,13 +5,14 @@
 */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import {
   SearchBox
 } from 'office-ui-fabric-react/lib/SearchBox';
 import SearchItem from './components/SearchItem';
 import Header from './components/Header';
-import { searchUser } from './api/user';
+import { searchUsersbyName, selectUser } from './actions/user';
 import { browserHistory } from 'react-router';
 
 class App extends Component {
@@ -40,23 +41,7 @@ class App extends Component {
   }
 
   onSearchUser(username) {
-    this.setState({
-      users: [],
-      isSearching: true,
-    })
-    searchUser(username)
-    .then(response => {
-      this.setState({
-        users: response.items,
-        isSearching: false,
-      })
-    })
-    .catch(err => {
-      this.setState({
-        users: [],
-        isSearching: false,
-      })
-    })
+    this.props.dispatch(searchUsersbyName(username));
   }
 
   onSearchBoxChanged(value) {
@@ -72,11 +57,12 @@ class App extends Component {
   }
 
   onSelectUser(user) {
+    this.props.dispatch(selectUser(user));
     browserHistory.push(`/${user.login}`)
   }
 
   render() {
-    const { users, isSearching } = this.state
+    const { list, isSearching, isSearchCompleted } = this.props.searchedUser;
     return (
       <div className="App">
         <Header title="GITHUB USER SEARCH"/>
@@ -90,10 +76,10 @@ class App extends Component {
             { isSearching &&
               <img src="https://cdn.zenquiz.net/static/Assets/loading-animation.gif" alt="Loading gif"/>
             }
-            { users && users.length > 0 &&
+            { list && list.length > 0 &&
               <div className="search-items">
                 {
-                  users.map(user => (
+                  list.map(user => (
                     <SearchItem
                       key={Math.random()}
                       user={user}
@@ -109,4 +95,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    searchedUser: state.searchedUser
+  }
+}
+
+export default connect(mapStateToProps)(App);
