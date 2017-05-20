@@ -1,6 +1,6 @@
 .detail-container {
   width: 100%;
-  max-width: 992px;
+  max-width: 1024px; 
   margin: auto;
   padding: 20px
 }
@@ -13,4 +13,8 @@
 
 .user-info p, .user-info a {
   margin-bottom: 5px;
+}
+
+.repo-wrapper {
+  margin-top: 10px;
 }

@@ -21,7 +21,7 @@ class App extends Component {
     this.state = {
       searchText: '',
       users: [],
-      isSearching: false
+      isTyping: false,
     }
     this.onSearchBoxChanged = this.onSearchBoxChanged.bind(this);
     this.onSelectUser = this.onSelectUser.bind(this);
@@ -46,11 +46,15 @@ class App extends Component {
 
   onSearchBoxChanged(value) {
     this.setState({
-      searchText: value
+      searchText: value,
+      isTyping: true
     });
     // Execute search after user stop typing for 0.5 sec
     setTimeout(() => {
       if (value && value === this.state.searchText) {
+        this.setState({
+          isTyping: false
+        })
         this.onSearchUser(this.state.searchText);
       }
     }, 500)
@@ -62,7 +66,8 @@ class App extends Component {
   }
 
   render() {
-    const { list, isSearching } = this.props.searchedUser;
+    const { list, isSearching, isSearchCompleted } = this.props.searchedUser;
+    const { isTyping } = this.state
     return (
       <div className="App">
         <Header title="GITHUB USER SEARCH"/>
@@ -75,6 +80,12 @@ class App extends Component {
               />
             { isSearching &&
               <img src="https://cdn.zenquiz.net/static/Assets/loading-animation.gif" alt="Loading gif"/>
+            }
+            { isSearchCompleted && list.length <= 0 && !isTyping && 
+              <div className="ms-font-l">
+                <b className="ms-fontWeight-semibold">{`${this.state.searchText} `}</b>
+                doesn't not match any users
+              </div>
             }
             { list && list.length > 0 &&
               <div className="search-items">
