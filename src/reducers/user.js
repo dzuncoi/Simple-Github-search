@@ -27,39 +27,37 @@ export function selectedUser(state = null, action) {
       return {
         ...state,
         isFetchingUserInfo: true,
-        isFetchingUserInfoCompleted: false
       }
     case FETCH_USERINFO_SUCCESS:
       return {
         ...state,
         ...action.payload,
         isFetchingUserInfo: false,
-        isFetchingUserInfoCompleted: true
+        isFetchingUserInfoSuccess: true
       }
     case FETCH_USERINFO_FAILURE:
       return {
         ...state,
         isFetchingUserInfo: false,
-        isFetchingUserInfoCompleted: true
+        isFetchingUserInfoSuccess: false
       }
     case FETCH_REPOS_REQUEST:
       return {
         ...state,
         isFetchingRepo: true,
-        isFetchingRepoCompleted: false
       }
     case FETCH_REPOS_SUCCESS:
       return {
         ...state,
         repos: action.payload,
         isFetchingRepo: false,
-        isFetchingRepoCompleted: true
+        isFetchingRepoSuccess: true
       }
     case FETCH_REPOS_FAILURE:
       return {
         ...state,
         isFetchingRepo: false,
-        isFetchingRepoCompleted: true
+        isFetchingRepoSuccess: false
       }
     default: return state;
   }

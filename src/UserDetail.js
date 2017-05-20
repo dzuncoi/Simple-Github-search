@@ -52,6 +52,14 @@ class UserDetail extends Component {
     const { username } = this.props.params;
     const user = this.props.selectedUser;
     if (!user) return null;
+    if (user.isFetchingUserInfoSuccess === false) {
+      return (
+        <div className="text-center">
+          <Header title={`USER: ${username.toUpperCase()}`}/>
+          <p className="ms-font-xxl" style={{marginTop: 30}}>CANNOT FOUND THIS USER</p>
+        </div>
+      )
+    }
     return (
       <div>
         <div className="text-center">
@@ -74,7 +82,7 @@ class UserDetail extends Component {
                 { user.isFetchingRepo &&
                   <img src="https://cdn.zenquiz.net/static/Assets/loading-animation.gif" alt="Loading gif"/>
                 }
-                { user.isFetchingRepoCompleted && user.repos.length <= 0 &&
+                { user.isFetchingRepoSuccess && user.repos.length <= 0 &&
                   <div className="ms-font-l">This user doesn't have any repos.</div>
                 }
                 {
