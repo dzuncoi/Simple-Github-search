@@ -7,7 +7,7 @@ Step 1: Clone this project
 
 Step 2: Install app's dependencies by running:
 ```
-yarn add
+yarn install
 yarn start
 ```
 Then open [http://localhost:3000/](http://localhost:3000/) to see your app.
