@@ -1,0 +1,10 @@
+.repo-container {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.repo-container p {
+  margin-bottom: 8px;
+}

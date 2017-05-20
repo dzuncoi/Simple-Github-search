@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   render() {
-    const { list, isSearching, isSearchCompleted } = this.props.searchedUser;
+    const { list, isSearching } = this.props.searchedUser;
     return (
       <div className="App">
         <Header title="GITHUB USER SEARCH"/>
